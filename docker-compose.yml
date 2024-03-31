@@ -1,0 +1,16 @@
+version: '3'
+services:
+  backend:
+     build: "./"
+     restart: always
+     network_mode: host
+     container_name: backend
+     labels:
+       logging: "promtail"
+       logging_jobname: "containerlogs"
+     ports:
+        - 7070:7070
+networks:
+  default:
+    name: app
+    external: true

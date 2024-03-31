@@ -1,0 +1,250 @@
+definitions:
+  model.CreateTransaction:
+    properties:
+      account:
+        type: string
+      amount:
+        type: number
+      store_id:
+        type: string
+    type: object
+  response.ResponseModel:
+    properties:
+      code:
+        type: integer
+      description:
+        type: string
+      error:
+        type: string
+      snapData: {}
+      status:
+        type: string
+    type: object
+host: gitlab.com
+info:
+  contact:
+    email: phapp0224mb@gmail.com
+    name: Bakhodir Yashin Mansur
+  description: API Server for pro_pay Application
+  termsOfService: gitlab.com
+  title: pro_pay
+  version: "1.0"
+paths:
+  /api/v1/download:
+    get:
+      consumes:
+      - application/json
+      - application/json
+      description: Download File
+      parameters:
+      - description: file path
+        in: query
+        name: file-path
+        required: true
+        type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.ResponseModel'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ResponseModel'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/response.ResponseModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ResponseModel'
+      tags:
+      - Download File
+  /api/v1/transactions:
+    post:
+      consumes:
+      - application/json
+      description: Create Transaction
+      parameters:
+      - description: ' Create Transaction'
+        in: body
+        name: create
+        required: true
+        schema:
+          $ref: '#/definitions/model.CreateTransaction'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.ResponseModel'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ResponseModel'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/response.ResponseModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ResponseModel'
+      summary: Create Transaction
+      tags:
+      - Transaction
+  /api/v1/transfer:
+    post:
+      consumes:
+      - application/json
+      - application/json
+      description: File Transfer
+      parameters:
+      - description: file path
+        in: query
+        name: file-path
+        required: true
+        type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.ResponseModel'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ResponseModel'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/response.ResponseModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ResponseModel'
+      security:
+      - ApiKeyAuth: []
+      tags:
+      - Transfer File
+  /api/v1/upload/upload-doc:
+    post:
+      consumes:
+      - application/json
+      - multipart/form-data
+      description: Upload doc
+      parameters:
+      - description: file
+        in: formData
+        name: file
+        required: true
+        type: file
+      produces:
+      - application/octet-stream
+      - application/msword
+      - application/vnd.openxmlformats-officedocument.wordprocessingml.document
+      - image/jpg
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.ResponseModel'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ResponseModel'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/response.ResponseModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ResponseModel'
+      security:
+      - ApiKeyAuth: []
+      tags:
+      - Upload File
+  /api/v1/upload/upload-image:
+    post:
+      consumes:
+      - application/json
+      - multipart/form-data
+      description: Upload Image
+      parameters:
+      - description: file
+        in: formData
+        name: file
+        required: true
+        type: file
+      produces:
+      - application/octet-stream
+      - image/png
+      - image/jpeg
+      - image/jpg
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.ResponseModel'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ResponseModel'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/response.ResponseModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ResponseModel'
+      security:
+      - ApiKeyAuth: []
+      tags:
+      - Upload File
+  /api/v1/upload/upload-images:
+    post:
+      consumes:
+      - application/json
+      - multipart/form-data
+      description: Upload Images
+      parameters:
+      - description: files
+        in: formData
+        name: files
+        required: true
+        type: file
+      produces:
+      - application/octet-stream
+      - image/png
+      - image/jpeg
+      - image/jpg
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.ResponseModel'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ResponseModel'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/response.ResponseModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ResponseModel'
+      security:
+      - ApiKeyAuth: []
+      tags:
+      - Upload File
+securityDefinitions:
+  ApiKeyAuth:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"
